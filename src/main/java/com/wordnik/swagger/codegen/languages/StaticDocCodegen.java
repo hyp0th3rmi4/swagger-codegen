@@ -1,5 +1,6 @@
 package com.wordnik.swagger.codegen.languages;
 
+
 import com.wordnik.swagger.codegen.*;
 import com.wordnik.swagger.models.properties.*;
 
@@ -23,37 +24,92 @@ public class StaticDocCodegen extends DefaultCodegen implements CodegenConfig {
 
   public StaticDocCodegen() {
     super();
-    outputFolder = "docs";
+
+    sourceFolder = "docs";
     modelTemplateFiles.put("model.mustache", ".html");
     apiTemplateFiles.put("operation.mustache", ".html");
     templateDir = "swagger-static";
 
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
-    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
-    supportingFiles.add(new SupportingFile("main.mustache", "", "main.js"));
-    supportingFiles.add(new SupportingFile("assets/css/bootstrap-responsive.css",
-      outputFolder + "/assets/css", "bootstrap-responsive.css"));
-    supportingFiles.add(new SupportingFile("assets/css/bootstrap.css",
-      outputFolder + "/assets/css", "bootstrap.css"));
-    supportingFiles.add(new SupportingFile("assets/css/style.css",
-      outputFolder + "/assets/css", "style.css"));
-    supportingFiles.add(new SupportingFile("assets/images/logo.png",
-      outputFolder + "/assets/images", "logo.png"));
-    supportingFiles.add(new SupportingFile("assets/js/bootstrap.js",
-      outputFolder + "/assets/js", "bootstrap.js"));
-    supportingFiles.add(new SupportingFile("assets/js/jquery-1.8.3.min.js",
-      outputFolder + "/assets/js", "jquery-1.8.3.min.js"));
-    supportingFiles.add(new SupportingFile("assets/js/main.js",
-      outputFolder + "/assets/js", "main.js"));
-    supportingFiles.add(new SupportingFile("index.mustache",
-      outputFolder, "index.html"));
 
     instantiationTypes.put("array", "ArrayList");
     instantiationTypes.put("map", "HashMap");
+  }
+  
+  @Override
+  public void init() {
+	  
+    if (additionalProperties.containsKey("invokerPackage") == true) {
+    	
+    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("invokerPackage", invokerPackage);
+    }
+    
+    if (additionalProperties.containsKey("groupId") == true) {
+    	
+    	groupId = (String) additionalProperties.get("groupId");
+    	
+    } else {
+    	
+        additionalProperties.put("groupId", groupId);
+    }
+    if (additionalProperties.containsKey("artifactId") == true) {
+    	
+    	artifactId = (String) additionalProperties.get("artifactId");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactId", artifactId);
+    }
+    
+    if (additionalProperties.containsKey("artifactVersion") == true) {
+    	
+    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactVersion", artifactVersion);
+    }
+    
+    if (additionalProperties.containsKey("modelPackage") == true) {
+    	
+    	modelPackage = (String) additionalProperties.get("modelPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("modelPackage", modelPackage);
+    }
+    
+    if (additionalProperties.containsKey("apiPackage") == true) {
+    	
+    	apiPackage = (String) additionalProperties.get("apiPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("apiPackage", apiPackage);
+    }
+
+    supportingFiles.clear();
+    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
+    supportingFiles.add(new SupportingFile("main.mustache", "", "main.js"));
+    supportingFiles.add(new SupportingFile("assets/css/bootstrap-responsive.css",
+      sourceFolder + "/assets/css", "bootstrap-responsive.css"));
+    supportingFiles.add(new SupportingFile("assets/css/bootstrap.css",
+      sourceFolder + "/assets/css", "bootstrap.css"));
+    supportingFiles.add(new SupportingFile("assets/css/style.css",
+      sourceFolder + "/assets/css", "style.css"));
+    supportingFiles.add(new SupportingFile("assets/images/logo.png",
+      sourceFolder + "/assets/images", "logo.png"));
+    supportingFiles.add(new SupportingFile("assets/js/bootstrap.js",
+      sourceFolder + "/assets/js", "bootstrap.js"));
+    supportingFiles.add(new SupportingFile("assets/js/jquery-1.8.3.min.js",
+      sourceFolder + "/assets/js", "jquery-1.8.3.min.js"));
+    supportingFiles.add(new SupportingFile("assets/js/main.js",
+      sourceFolder + "/assets/js", "main.js"));
+    supportingFiles.add(new SupportingFile("index.mustache",
+      sourceFolder, "index.html"));
   }
 
   @Override
@@ -68,5 +124,6 @@ public class StaticDocCodegen extends DefaultCodegen implements CodegenConfig {
 
   public String modelFileFolder() {
     return outputFolder + File.separator + sourceFolder + File.separator + "models";
+	  
   }
 }

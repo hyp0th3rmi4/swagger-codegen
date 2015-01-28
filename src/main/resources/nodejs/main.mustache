@@ -33,7 +33,7 @@ swagger.setAppHandler(app);
 
 swagger.configureSwaggerPaths("", "api-docs", "")
 
-var models = require("./app/models.js");
+var models = require("./{{modelPackage}}/models.js");
 
 {{#apiInfo}}
 {{#apis}}

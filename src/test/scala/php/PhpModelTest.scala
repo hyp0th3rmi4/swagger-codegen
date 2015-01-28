@@ -27,6 +27,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .required("name")
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -77,6 +78,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -114,6 +116,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -138,6 +141,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .property("children", new RefProperty("#/definitions/Children"))
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -161,6 +165,7 @@ class PhpModelTest extends FlatSpec with Matchers {
         .items(new RefProperty("#/definitions/Children")))
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -186,6 +191,7 @@ class PhpModelTest extends FlatSpec with Matchers {
         .additionalProperties(new RefProperty("#/definitions/Children")))
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -211,6 +217,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .description("an array model")
       .items(new RefProperty("#/definitions/Children"))
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -227,6 +234,7 @@ class PhpModelTest extends FlatSpec with Matchers {
       .additionalProperties(new RefProperty("#/definitions/Children"))
 
     val codegen = new PhpClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -241,6 +249,7 @@ class PhpModelTest extends FlatSpec with Matchers {
     val model = new SwaggerParser()
       .read("src/test/resources/postBodyTest.json")
     val codegen = new PhpClientCodegen()
+    codegen.init()
 
     val animalPaths = model.getPaths()
     val animalOps = animalPaths.get("/animals")

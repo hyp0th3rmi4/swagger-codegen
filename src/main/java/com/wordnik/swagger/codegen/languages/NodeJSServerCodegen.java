@@ -28,16 +28,6 @@ public class NodeJSServerCodegen extends DefaultCodegen implements CodegenConfig
     apiPackage = "app.apis";
     modelPackage = "app";
 
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
-    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
-    supportingFiles.add(new SupportingFile("models.mustache", modelPackage, "models.js"));
-    supportingFiles.add(new SupportingFile("main.mustache", "", "main.js"));
-    supportingFiles.add(new SupportingFile("README.mustache", "", "README.js"));
-
     languageSpecificPrimitives = new HashSet<String>(
       Arrays.asList(
         "String",
@@ -49,6 +39,71 @@ public class NodeJSServerCodegen extends DefaultCodegen implements CodegenConfig
         "Float")
       );
     typeMapping.put("array", "array");
+    
+
+  }
+  
+  @Override
+  public void init() {
+	  
+    if (additionalProperties.containsKey("invokerPackage") == true) {
+    	
+    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("invokerPackage", invokerPackage);
+    }
+    
+    if (additionalProperties.containsKey("groupId") == true) {
+    	
+    	groupId = (String) additionalProperties.get("groupId");
+    	
+    } else {
+    	
+        additionalProperties.put("groupId", groupId);
+    }
+    if (additionalProperties.containsKey("artifactId") == true) {
+    	
+    	artifactId = (String) additionalProperties.get("artifactId");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactId", artifactId);
+    }
+    
+    if (additionalProperties.containsKey("artifactVersion") == true) {
+    	
+    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactVersion", artifactVersion);
+    }
+    
+    if (additionalProperties.containsKey("modelPackage") == true) {
+    	
+    	modelPackage = (String) additionalProperties.get("modelPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("modelPackage", modelPackage);
+    }
+    
+    if (additionalProperties.containsKey("apiPackage") == true) {
+    	
+    	apiPackage = (String) additionalProperties.get("apiPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("apiPackage", apiPackage);
+    }
+
+    supportingFiles.clear();
+    supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
+    supportingFiles.add(new SupportingFile("models.mustache", modelPackage, "models.js"));
+    supportingFiles.add(new SupportingFile("main.mustache", "", "main.js"));
+    supportingFiles.add(new SupportingFile("README.mustache", "", "README.js"));
   }
 
   @Override
@@ -75,5 +130,6 @@ public class NodeJSServerCodegen extends DefaultCodegen implements CodegenConfig
     else
       type = swaggerType;
     return toModelName(type);
+	  
   }
 }

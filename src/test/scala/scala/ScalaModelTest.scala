@@ -25,6 +25,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .required("name")
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -76,6 +77,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
     cm.name should be ("sample")
     cm.classname should be ("Sample")
@@ -103,6 +105,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -129,6 +132,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .property("children", new RefProperty("#/definitions/Children"))
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -155,6 +159,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
         .items(new RefProperty("#/definitions/Children")))
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -183,6 +188,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
         .additionalProperties(new RefProperty("#/definitions/Children")))
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -211,6 +217,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .description("an array model")
       .items(new RefProperty("#/definitions/Children"))
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -228,6 +235,7 @@ class ScalaModelTest extends FlatSpec with Matchers {
       .additionalProperties(new RefProperty("#/definitions/Children"))
 
     val codegen = new ScalaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")

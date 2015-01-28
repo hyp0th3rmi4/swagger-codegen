@@ -35,4 +35,9 @@ public class SwaggerGenerator extends DefaultCodegen implements CodegenConfig {
       e.printStackTrace();
     }
   }
+  
+  @Override
+  public void init() {
+	  
+  }
 }

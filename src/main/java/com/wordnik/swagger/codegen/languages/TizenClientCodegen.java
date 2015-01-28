@@ -87,6 +87,12 @@ public class TizenClientCodegen extends DefaultCodegen implements CodegenConfig 
         "Integer",
         "Float")
       );
+    
+  }
+  
+  @Override
+  public void init() {
+	  
     supportingFiles.clear();
     supportingFiles.add(new SupportingFile("modelFactory.mustache", sourceFolder, PREFIX + "ModelFactory.h"));
     supportingFiles.add(new SupportingFile("helpers-header.mustache", sourceFolder, PREFIX + "Helpers.h"));
@@ -239,5 +245,6 @@ public class TizenClientCodegen extends DefaultCodegen implements CodegenConfig 
 
   public String escapeReservedWord(String name) {
     return "_" + name;
+	  
   }
 }

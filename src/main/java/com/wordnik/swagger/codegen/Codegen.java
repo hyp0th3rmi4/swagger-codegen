@@ -9,6 +9,9 @@ import io.swagger.parser.SwaggerParser;
 import org.apache.commons.cli.*;
 
 import java.io.File;
+/*** [CV] NOTE: BEGIN PATCH CODE ***/
+import java.io.FileInputStream;
+/*** [CV] NOTE: END PATCH CODE ***/
 import java.util.*;
 
 public class Codegen extends DefaultGenerator {
@@ -36,7 +39,11 @@ public class Codegen extends DefaultGenerator {
     options.addOption("i", "input-spec", true, "location of the swagger spec, as URL or file");
     options.addOption("t", "template-dir", true, "folder containing the template files");
     options.addOption("d", "debug-info", false, "prints additional info for debugging");
-
+    
+    /*** [CV] NOTE: BEGIN PATCH CODE ***/
+    options.addOption("p", "properties-file", true, "location of the properties file containing additional properties for the generator");
+    /*** [CV] NOTE: END PATCH CODE ***/
+      
     ClientOptInput clientOptInput = new ClientOptInput();
     ClientOpts clientOpts = new ClientOpts();
     Swagger swagger = null;
@@ -72,6 +79,34 @@ public class Codegen extends DefaultGenerator {
         swagger = new SwaggerParser().read(cmd.getOptionValue("i"));
       if (cmd.hasOption("t"))
         clientOpts.getProperties().put("templateDir", String.valueOf(cmd.getOptionValue("t")));
+       
+      /*** [CV] NOTE: BEGIN PATCH CODE ***/
+        
+      // we add additional properties that are read from a properties
+      // file, in this way we can customise code generation rather than
+      // using default wordnik values. These properties are dependent
+      // on the specific code generator used and can be several, therefore
+      // it makes sense to wrap them into a properties file.
+      //
+      if (cmd.hasOption("p")) {
+        String propertiesFilePath = String.valueOf(cmd.getOptionValue("p"));
+        File propertiesFile = new File(propertiesFilePath);
+        if (propertiesFile.exists()) {
+          Properties customProperties = new Properties();
+          customProperties.load(new FileInputStream(propertiesFile));
+          for(String key : customProperties.stringPropertyNames()) {
+             String value = customProperties.getProperty(key);
+             clientOpts.getProperties().put(key, value);
+             System.out.println("Added custom property: " + key + " = " + value );
+          }
+              
+        } else {
+            System.out.println("Warning custom properties file '" + propertiesFilePath + "'' does not exist." );
+        }
+      }
+        
+      /*** [CV] NOTE: END PATCH CODE ***/
+        
     }
     catch (Exception e) {
       usage(options);

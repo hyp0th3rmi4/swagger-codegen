@@ -39,15 +39,6 @@ public class ScalaClientCodegen extends DefaultCodegen implements CodegenConfig 
         "trait", "try", "true", "type", "val", "var", "while", "with", "yield")
     );
 
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
-    supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
-    supportingFiles.add(new SupportingFile("apiInvoker.mustache", 
-      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiInvoker.scala"));
-
     importMapping.remove("List");
     importMapping.remove("Set");
     importMapping.remove("Map");
@@ -87,6 +78,76 @@ public class ScalaClientCodegen extends DefaultCodegen implements CodegenConfig 
       );
     instantiationTypes.put("array", "ListBuffer");
     instantiationTypes.put("map", "HashMap");
+    
+    
+  }
+  
+  
+  @Override
+  public void init() {
+	  
+	  if (additionalProperties.containsKey("invokerPackage") == true) {
+	    	
+	    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("invokerPackage", invokerPackage);
+	    }
+	    
+	    if (additionalProperties.containsKey("groupId") == true) {
+	    	
+	    	groupId = (String) additionalProperties.get("groupId");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("groupId", groupId);
+	    }
+	    if (additionalProperties.containsKey("artifactId") == true) {
+	    	
+	    	artifactId = (String) additionalProperties.get("artifactId");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("artifactId", artifactId);
+	    }
+	    
+	    if (additionalProperties.containsKey("artifactVersion") == true) {
+	    	
+	    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("artifactVersion", artifactVersion);
+	    }
+	    
+	    if (additionalProperties.containsKey("modelPackage") == true) {
+	    	
+	    	modelPackage = (String) additionalProperties.get("modelPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("modelPackage", modelPackage);
+	    }
+	    
+	    if (additionalProperties.containsKey("apiPackage") == true) {
+	    	
+	    	apiPackage = (String) additionalProperties.get("apiPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("apiPackage", apiPackage);
+	    }
+
+	    additionalProperties.put("invokerPackage", invokerPackage);
+	    additionalProperties.put("groupId", groupId);
+	    additionalProperties.put("artifactId", artifactId);
+	    additionalProperties.put("artifactVersion", artifactVersion);
+
+	    supportingFiles.clear();
+	    supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
+	    supportingFiles.add(new SupportingFile("apiInvoker.mustache", 
+	      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiInvoker.scala"));
   }
 
   @Override
@@ -132,6 +193,7 @@ public class ScalaClientCodegen extends DefaultCodegen implements CodegenConfig 
       type = swaggerType;
     return toModelName(type);
   }
+
 
   @Override
   public String toInstantiationType(Property p) {

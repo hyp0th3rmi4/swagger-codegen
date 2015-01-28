@@ -25,6 +25,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .required("name")
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -76,6 +77,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -104,6 +106,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -130,6 +133,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .property("children", new RefProperty("#/definitions/Children"))
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -156,6 +160,7 @@ class JavaModelTest extends FlatSpec with Matchers {
         .items(new RefProperty("#/definitions/Children")))
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -184,6 +189,7 @@ class JavaModelTest extends FlatSpec with Matchers {
         .additionalProperties(new RefProperty("#/definitions/Children")))
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -212,6 +218,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .description("an array model")
       .items(new RefProperty("#/definitions/Children"))
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -229,6 +236,7 @@ class JavaModelTest extends FlatSpec with Matchers {
       .additionalProperties(new RefProperty("#/definitions/Children"))
 
     val codegen = new JavaClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")

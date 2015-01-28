@@ -18,6 +18,7 @@ class StaticOperationTest extends FlatSpec with Matchers {
     val property = new StringProperty()
 
     val codegen = new StaticDocCodegen()
+    codegen.init()
     val cp = codegen.fromProperty("property", property)
 
     cp.baseName should be ("property")
@@ -31,6 +32,7 @@ class StaticOperationTest extends FlatSpec with Matchers {
     val property = new RefProperty("Children")
 
     val codegen = new StaticDocCodegen()
+    codegen.init()
     val cp = codegen.fromProperty("property", property)
 
     cp.baseName should be ("property")
@@ -49,6 +51,7 @@ class StaticOperationTest extends FlatSpec with Matchers {
       items(new RefProperty("Children"))
 
     val codegen = new StaticDocCodegen()
+    codegen.init()
     val cp = codegen.fromProperty("property", property)
 
     cp.baseName should be ("property")

@@ -868,4 +868,15 @@ public class DefaultCodegen {
     opList.add(co);
     co.baseName = tag;    
   }
+  
+
+  /*** [CV] BEGIN PATCH CODE ***/
+  public void init() {
+	  
+
+	  
+  }
+  
+  /*** [CV] END PATCH CODE ***/
+  
 }

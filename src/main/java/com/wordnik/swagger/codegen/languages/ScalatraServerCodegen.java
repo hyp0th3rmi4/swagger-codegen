@@ -65,28 +65,6 @@ public class ScalatraServerCodegen extends DefaultCodegen implements CodegenConf
     typeMapping.put("integer", "Int");
     typeMapping.put("long", "Long");
 
-    additionalProperties.put("appName", "Swagger Sample");
-    additionalProperties.put("appName", "Swagger Sample");
-    additionalProperties.put("appDescription", "A sample swagger server");
-    additionalProperties.put("infoUrl", "http://developers.helloreverb.com");
-    additionalProperties.put("infoEmail", "hello@helloreverb.com");
-    additionalProperties.put("licenseInfo", "All rights reserved");
-    additionalProperties.put("licenseUrl", "http://apache.org/licenses/LICENSE-2.0.html");
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
-    supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-    supportingFiles.add(new SupportingFile("build.sbt", "", "build.sbt")); 
-    supportingFiles.add(new SupportingFile("web.xml", "/src/main/webapp/WEB-INF", "web.xml"));
-    supportingFiles.add(new SupportingFile("JettyMain.scala", sourceFolder, "JettyMain.scala"));
-    supportingFiles.add(new SupportingFile("Bootstrap.mustache", sourceFolder, "ScalatraBootstrap.scala"));
-    supportingFiles.add(new SupportingFile("ServletApp.mustache", sourceFolder, "ServletApp.scala"));
-    supportingFiles.add(new SupportingFile("project/build.properties", "project", "build.properties"));
-    supportingFiles.add(new SupportingFile("project/plugins.sbt", "project", "plugins.sbt"));
-    supportingFiles.add(new SupportingFile("sbt", "", "sbt"));
-
     languageSpecificPrimitives = new HashSet<String>(
       Arrays.asList(
         "String",
@@ -115,6 +93,106 @@ public class ScalatraServerCodegen extends DefaultCodegen implements CodegenConf
     importMapping.put("LocalDateTime", "org.joda.time.LocalDateTime");
     importMapping.put("LocalDate", "org.joda.time.LocalDate");
     importMapping.put("LocalTime", "org.joda.time.LocalTime");
+  }
+  
+  @Override
+  public void init() {    
+
+    if (additionalProperties.containsKey("appName") == false) {
+
+        additionalProperties.put("appName", "Swagger Sample");
+    }
+    
+    if (additionalProperties.containsKey("appDescription") == false) {
+
+        additionalProperties.put("appDescription", "A sample swagger server");
+    }    
+    
+    if (additionalProperties.containsKey("infoUrl") == false) {
+
+        additionalProperties.put("infoUrl", "http://developers.helloreverb.com");
+    }
+    
+    if (additionalProperties.containsKey("infoEmail") == false) {
+
+        additionalProperties.put("infoEmail", "hello@helloreverb.com");
+    }
+    
+    if (additionalProperties.containsKey("licenseInfo") == false) {
+
+        additionalProperties.put("licenseInfo", "All rights reserved");
+    }
+    
+    
+    if (additionalProperties.containsKey("licenseUrl") == false) {
+    	
+        additionalProperties.put("licenseUrl", "http://apache.org/licenses/LICENSE-2.0.html");
+    }
+    
+    
+    if (additionalProperties.containsKey("invokerPackage") == true) {
+    	
+    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("invokerPackage", invokerPackage);
+    }
+    
+    if (additionalProperties.containsKey("groupId") == true) {
+    	
+    	groupId = (String) additionalProperties.get("groupId");
+    	
+    } else {
+    	
+        additionalProperties.put("groupId", groupId);
+    }
+    if (additionalProperties.containsKey("artifactId") == true) {
+    	
+    	artifactId = (String) additionalProperties.get("artifactId");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactId", artifactId);
+    }
+    
+    if (additionalProperties.containsKey("artifactVersion") == true) {
+    	
+    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactVersion", artifactVersion);
+    }
+    
+    if (additionalProperties.containsKey("modelPackage") == true) {
+    	
+    	modelPackage = (String) additionalProperties.get("modelPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("modelPackage", modelPackage);
+    }
+    
+    if (additionalProperties.containsKey("apiPackage") == true) {
+    	
+    	apiPackage = (String) additionalProperties.get("apiPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("apiPackage", apiPackage);
+    }
+
+    supportingFiles.clear();
+    supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+    supportingFiles.add(new SupportingFile("build.sbt", "", "build.sbt")); 
+    supportingFiles.add(new SupportingFile("web.xml", "/src/main/webapp/WEB-INF", "web.xml"));
+    supportingFiles.add(new SupportingFile("JettyMain.scala", sourceFolder, "JettyMain.scala"));
+    supportingFiles.add(new SupportingFile("Bootstrap.mustache", sourceFolder, "ScalatraBootstrap.scala"));
+    supportingFiles.add(new SupportingFile("ServletApp.mustache", sourceFolder, "ServletApp.scala"));
+    supportingFiles.add(new SupportingFile("project/build.properties", "project", "build.properties"));
+    supportingFiles.add(new SupportingFile("project/plugins.sbt", "project", "plugins.sbt"));
+    supportingFiles.add(new SupportingFile("sbt", "", "sbt"));
   }
 
   @Override
@@ -171,4 +249,5 @@ public class ScalatraServerCodegen extends DefaultCodegen implements CodegenConf
       type = swaggerType;
     return toModelName(type);
   }
+
 }

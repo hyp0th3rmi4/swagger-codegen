@@ -41,33 +41,93 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
         "native", "super", "while")
     );
 
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
-    supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
-    supportingFiles.add(new SupportingFile("apiInvoker.mustache", 
-      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiInvoker.java"));
-    supportingFiles.add(new SupportingFile("JsonUtil.mustache", 
-      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "JsonUtil.java"));
-    supportingFiles.add(new SupportingFile("apiException.mustache", 
-      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiException.java"));
-
     languageSpecificPrimitives = new HashSet<String>(
-      Arrays.asList(
-        "String",
-        "boolean",
-        "Boolean",
-        "Double",
-        "Integer",
-        "Long",
-        "Float",
-        "Object")
-      );
-    instantiationTypes.put("array", "ArrayList");
-    instantiationTypes.put("map", "HashMap");
+  	      Arrays.asList(
+  	        "String",
+  	        "boolean",
+  	        "Boolean",
+  	        "Double",
+  	        "Integer",
+  	        "Long",
+  	        "Float",
+  	        "Object")
+  	      );
+  	instantiationTypes.put("array", "ArrayList");
+  	instantiationTypes.put("map", "HashMap");
+
   }
+  
+  /*** [CV] BEGIN PATCH CODE ***/
+  
+  @Override
+  public void init() {
+	
+	  if (additionalProperties.containsKey("invokerPackage") == true) {
+	    	
+	    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("invokerPackage", invokerPackage);
+	    }
+	    
+	    if (additionalProperties.containsKey("groupId") == true) {
+	    	
+	    	groupId = (String) additionalProperties.get("groupId");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("groupId", groupId);
+	    }
+	    if (additionalProperties.containsKey("artifactId") == true) {
+	    	
+	    	artifactId = (String) additionalProperties.get("artifactId");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("artifactId", artifactId);
+	    }
+	    
+	    if (additionalProperties.containsKey("artifactVersion") == true) {
+	    	
+	    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("artifactVersion", artifactVersion);
+	    }
+	    
+	    if (additionalProperties.containsKey("modelPackage") == true) {
+	    	
+	    	modelPackage = (String) additionalProperties.get("modelPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("modelPackage", modelPackage);
+	    }
+	    
+	    if (additionalProperties.containsKey("apiPackage") == true) {
+	    	
+	    	apiPackage = (String) additionalProperties.get("apiPackage");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("apiPackage", apiPackage);
+	    }
+	    
+	    supportingFiles.clear();
+	    supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
+	    supportingFiles.add(new SupportingFile("apiInvoker.mustache", 
+	      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiInvoker.java"));
+	    supportingFiles.add(new SupportingFile("JsonUtil.mustache", 
+	      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "JsonUtil.java"));
+	    supportingFiles.add(new SupportingFile("apiException.mustache", 
+	      (sourceFolder + File.separator + invokerPackage).replace(".", java.io.File.separator), "ApiException.java"));
+
+
+  }
+  
+  /*** [CV] END PATCH CODE ***/
 
   @Override
   public String escapeReservedWord(String name) {
@@ -82,6 +142,7 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
   public String modelFileFolder() {
     return outputFolder + "/" + sourceFolder + "/" + modelPackage().replaceAll("\\.", "/");
   }
+
 
   @Override
   public String getTypeDeclaration(Property p) {

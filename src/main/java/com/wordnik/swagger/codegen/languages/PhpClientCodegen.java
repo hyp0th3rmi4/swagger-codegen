@@ -37,11 +37,6 @@ public class PhpClientCodegen extends DefaultCodegen implements CodegenConfig {
         "int")
     );
 
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-
     languageSpecificPrimitives.add("int");
     languageSpecificPrimitives.add("array");
     languageSpecificPrimitives.add("map");
@@ -55,6 +50,53 @@ public class PhpClientCodegen extends DefaultCodegen implements CodegenConfig {
     typeMapping.put("List", "array");
     typeMapping.put("map", "map");
 
+  }
+  
+  @Override
+  public void init() {
+  	  
+	if (additionalProperties.containsKey("invokerPackage") == true) {
+    	
+    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("invokerPackage", invokerPackage);
+    }
+    
+    if (additionalProperties.containsKey("groupId") == true) {
+    	
+    	groupId = (String) additionalProperties.get("groupId");
+    	
+    } else {
+    	
+        additionalProperties.put("groupId", groupId);
+    }
+    if (additionalProperties.containsKey("artifactId") == true) {
+    	
+    	artifactId = (String) additionalProperties.get("artifactId");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactId", artifactId);
+    }
+    
+    if (additionalProperties.containsKey("artifactVersion") == true) {
+    	
+    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactVersion", artifactVersion);
+    }
+
+
+    additionalProperties.put("invokerPackage", invokerPackage);
+    additionalProperties.put("groupId", groupId);
+    additionalProperties.put("artifactId", artifactId);
+    additionalProperties.put("artifactVersion", artifactVersion);
+    
+    supportingFiles.clear();
     supportingFiles.add(new SupportingFile("Swagger.mustache", "", "Swagger.php"));
   }
 
@@ -103,6 +145,7 @@ public class PhpClientCodegen extends DefaultCodegen implements CodegenConfig {
       return null;
     return type;
   }
+  
 
   public String toDefaultValue(Property p) {
     return "null";

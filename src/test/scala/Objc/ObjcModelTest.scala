@@ -25,6 +25,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .required("name")
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -76,6 +77,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -114,6 +116,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .required("id")
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -138,6 +141,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .property("children", new RefProperty("#/definitions/Children"))
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -161,6 +165,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
         .items(new RefProperty("#/definitions/Children")))
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -186,6 +191,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
         .additionalProperties(new RefProperty("#/definitions/Children")))
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -211,6 +217,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .description("an array model")
       .items(new RefProperty("#/definitions/Children"))
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -228,6 +235,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
       .additionalProperties(new RefProperty("#/definitions/Children"))
 
     val codegen = new ObjcClientCodegen()
+    codegen.init()
     val cm = codegen.fromModel("sample", model)
 
     cm.name should be ("sample")
@@ -242,6 +250,7 @@ class ObjcModelTest extends FlatSpec with Matchers {
   it should "create proper imports per #316" in {
     val model = new SwaggerLoader().read("src/test/resources/postBodyTest.json")
     val codegen = new ObjcClientCodegen()
+    codegen.init()
 
     val animalPaths = model.getPaths()
     val animalOps = animalPaths.get("/animals")

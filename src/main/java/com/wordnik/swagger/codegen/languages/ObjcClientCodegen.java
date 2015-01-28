@@ -90,6 +90,12 @@ public class ObjcClientCodegen extends DefaultCodegen implements CodegenConfig {
     instantiationTypes.put("array", "NSMutableArray");
     instantiationTypes.put("map", "NSMutableDictionary");
 
+  }
+  
+  @Override
+  public void init() {
+   
+    supportingFiles.clear();
     supportingFiles.add(new SupportingFile("SWGObject.h", sourceFolder, "SWGObject.h"));
     supportingFiles.add(new SupportingFile("SWGObject.m", sourceFolder, "SWGObject.m"));
     supportingFiles.add(new SupportingFile("SWGApiClient.h", sourceFolder, "SWGApiClient.h"));
@@ -199,7 +205,7 @@ public class ObjcClientCodegen extends DefaultCodegen implements CodegenConfig {
   public String toApiFilename(String name) {
     return PREFIX + initialCaps(name) + "Api";
   }
-
+  
   @Override
   public String toVarName(String name) {
     String paramName = name.replaceAll("[^a-zA-Z0-9_]","");

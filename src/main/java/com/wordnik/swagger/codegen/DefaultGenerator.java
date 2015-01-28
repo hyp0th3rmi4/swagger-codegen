@@ -22,7 +22,10 @@ public class DefaultGenerator implements Generator {
     ClientOpts clientOpts = opts.getOpts();
     this.config = opts.getConfig();
     this.config.additionalProperties().putAll(clientOpts.getProperties());
-
+    
+    /*** [CV] BEGIN PATCH CODE ***/
+    this.config.init();
+    /*** [CV] END PATCH CODE ***/
     return this;
   }
 

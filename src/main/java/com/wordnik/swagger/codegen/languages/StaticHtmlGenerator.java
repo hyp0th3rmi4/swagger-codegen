@@ -29,28 +29,97 @@ public class StaticHtmlGenerator extends DefaultCodegen implements CodegenConfig
 
     defaultIncludes = new HashSet<String>();
 
-    String partner = "our Partner";
-
-    if(System.getProperty("partner") != null)
-      partner = System.getProperty("partner");
-
-    additionalProperties.put("partner", partner);
-    additionalProperties.put("appName", "Swagger Sample");
-    additionalProperties.put("appDescription", "A sample swagger server");
-    additionalProperties.put("infoUrl", "https://helloreverb.com");
-    additionalProperties.put("infoEmail", "hello@helloreverb.com");
-    additionalProperties.put("licenseInfo", "All rights reserved");
-    additionalProperties.put("licenseUrl", "http://apache.org/licenses/LICENSE-2.0.html");
-    additionalProperties.put("invokerPackage", invokerPackage);
-    additionalProperties.put("groupId", groupId);
-    additionalProperties.put("artifactId", artifactId);
-    additionalProperties.put("artifactVersion", artifactVersion);
-  
-    supportingFiles.add(new SupportingFile("index.mustache", "", "index.html")); 
     reservedWords = new HashSet<String>();
 
     languageSpecificPrimitives = new HashSet<String>();
     importMapping = new HashMap<String, String> ();
+  }
+  
+  @Override
+  public void init() {
+	  
+    String partner = "our Partner";
+
+    if(System.getProperty("partner") != null)
+      partner = System.getProperty("partner");
+    
+    if (additionalProperties.containsKey("invokerPackage") == true) {
+    	
+    	invokerPackage = (String) additionalProperties.get("invokerPackage");
+    	
+    } else {
+    	
+        additionalProperties.put("invokerPackage", invokerPackage);
+    }
+    
+    if (additionalProperties.containsKey("groupId") == true) {
+    	
+    	groupId = (String) additionalProperties.get("groupId");
+    	
+    } else {
+    	
+        additionalProperties.put("groupId", groupId);
+    }
+    if (additionalProperties.containsKey("artifactId") == true) {
+    	
+    	artifactId = (String) additionalProperties.get("artifactId");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactId", artifactId);
+    }
+    
+    if (additionalProperties.containsKey("artifactVersion") == true) {
+    	
+    	artifactVersion = (String) additionalProperties.get("artifactVersion");
+    	
+    } else {
+    	
+        additionalProperties.put("artifactVersion", artifactVersion);
+    }
+    
+    if (additionalProperties.containsKey("partner") == true) {
+    	
+    	partner = (String) additionalProperties.get("partner");
+    
+    } else {
+
+        additionalProperties.put("partner", partner);
+    }
+    
+    if (additionalProperties.containsKey("appName") == false) {
+
+        additionalProperties.put("appName", "Swagger Sample");
+    }
+    
+    if (additionalProperties.containsKey("appDescription") == false) {
+
+        additionalProperties.put("appDescription", "A sample swagger server");
+    }    
+    
+    if (additionalProperties.containsKey("infoUrl") == false) {
+
+        additionalProperties.put("infoUrl", "http://developers.helloreverb.com");
+    }
+    
+    if (additionalProperties.containsKey("infoEmail") == false) {
+
+        additionalProperties.put("infoEmail", "hello@helloreverb.com");
+    }
+    
+    if (additionalProperties.containsKey("licenseInfo") == false) {
+
+        additionalProperties.put("licenseInfo", "All rights reserved");
+    }
+    
+    
+    if (additionalProperties.containsKey("licenseUrl") == false) {
+    	
+        additionalProperties.put("licenseUrl", "http://apache.org/licenses/LICENSE-2.0.html");
+    }
+  
+    supportingFiles.clear();
+    supportingFiles.add(new SupportingFile("index.mustache", "", "index.html")); 
   }
 
   @Override
@@ -77,5 +146,6 @@ public class StaticHtmlGenerator extends DefaultCodegen implements CodegenConfig
       op.httpMethod = op.httpMethod.toLowerCase();
     }
     return objs;
+	  
   }
 }
