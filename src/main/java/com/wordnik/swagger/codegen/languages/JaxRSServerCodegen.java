@@ -16,7 +16,39 @@ public class JaxRSServerCodegen extends JavaClientCodegen implements CodegenConf
   protected String artifactVersion = "1.0.0";
   protected String sourceFolder = "src/main/java";
   protected String title = "Swagger Server";
+  /*** [CV] BEGIN PATCH CODE ***/
+  
+  /**
+   * This {@link String} defines the value of the <i>urlPattern</i> tag in 
+   * the <i>web.xml</i> file (web application descriptor). It is used by
+   * the J2EE container to map URL to the REST servlet and servlet filters.
+   */
+  protected String apiUrlPattern = "/*";
+  /**
+   * This {@link String} contains the specific packaging that is specified
+   * in the POM file for the apis. By default is set to <i>jar</i> and it
+   * can be changed via properties file. The available options would be:
+   * <ul>
+   * <li>jar</li>
+   * <li>war</li>
+   * <li>pom</li>
+   * <li>ear</li>
+   * <li>ejb</li>
+   * </ul>
+   * What makes sense for this specific type of application are <i>jar</i>
+   * and <i>war</i>.
+   */
+  protected String pomPackaging = "jar";
+  
+  /**
+   * This {@link String} contains the name of the servlet that will be used
+   * to deploy the API. By default is set to <i>jersey</i> and it can be 
+   * changed via properties file.
+   */
+  protected String servletName = "jersey";
 
+  /*** [CV] END PATCH CODE ***/
+  
   public String getName() {
     return "jaxrs";
   }
@@ -97,6 +129,24 @@ public class JaxRSServerCodegen extends JavaClientCodegen implements CodegenConf
 	        additionalProperties.put("title", title);
 	    }
 	    
+	    if (additionalProperties.containsKey("servletName") == true) {
+	    	
+	    	servletName = (String) additionalProperties.get("servletName");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("servletName", servletName);
+	    }
+	    
+	    if (additionalProperties.containsKey("apiUrlPattern") == true) {
+	    	
+	    	apiUrlPattern = (String) additionalProperties.get("apiUrlPattern");
+	    	
+	    } else {
+	    	
+	        additionalProperties.put("apiUrlPattern", apiUrlPattern);
+	    }
+	    
 	    if (additionalProperties.containsKey("modelPackage") == true) {
 	    	
 	    	modelPackage = (String) additionalProperties.get("modelPackage");
@@ -115,13 +165,30 @@ public class JaxRSServerCodegen extends JavaClientCodegen implements CodegenConf
 	        additionalProperties.put("apiPackage", apiPackage);
 	    }
 	    
+	    if (additionalProperties.containsKey("pomPackaging") == true) {
+	    	
+	    	pomPackaging = (String) additionalProperties.get("pomPackaging");
+	    
+	    } else {
+	    	
+	    	additionalProperties.put("pomPackaging", pomPackaging);
+	    }
+	    
 
 	    supportingFiles.clear();
 	    supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
 	    supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+
+	    // this is an additional support required when deploying war to WebSphere
+	    // Application Server or Websphere Liberty.
+	    //
+	    supportingFiles.add(new SupportingFile("services.mustache", 
+	      ("src/main/resources/META-INF/services"), "com.sun.jersey.core.spi.scanning.uri.UriSchemeScanner"));
+	    supportingFiles.add(new SupportingFile("WsJarSchemeScanner.mustache", 
+	      (sourceFolder + File.separator + apiPackage).replace(".", java.io.File.separator), "WsJarSchemeScanner.java"));
+	    
+	    
 	    supportingFiles.add(new SupportingFile("ApiException.mustache", 
-	    		
-	    		
 	      (sourceFolder + File.separator + apiPackage).replace(".", java.io.File.separator), "ApiException.java"));
 	    supportingFiles.add(new SupportingFile("ApiOriginFilter.mustache", 
 	      (sourceFolder + File.separator + apiPackage).replace(".", java.io.File.separator), "ApiOriginFilter.java"));

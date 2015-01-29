@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
   <servlet>
-    <servlet-name>jersey</servlet-name>
+    <servlet-name>{{servletName}}</servlet-name>
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
@@ -40,15 +40,15 @@
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>jersey</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <servlet-name>{{servletName}}</servlet-name>
+    <url-pattern>{{apiUrlPattern}}</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>ApiOriginFilter</filter-name>
-    <filter-class>com.wordnik.api.ApiOriginFilter</filter-class>
+    <filter-class>{{apiPackage}}.ApiOriginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>ApiOriginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>{{apiUrlPattern}}</url-pattern>
   </filter-mapping>
 </web-app>

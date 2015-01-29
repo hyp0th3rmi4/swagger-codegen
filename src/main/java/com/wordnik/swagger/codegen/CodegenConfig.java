@@ -51,7 +51,13 @@ public interface CodegenConfig {
   
   
   /*** [CV] BEGIN PATCH CODE ***/
-  
+  /**
+   * Initialises the internal data structures of the configuration. This function
+   * was originally implemented in the constructor of concrete classes but, because
+   * know we allow changing some of the default properties of the code generation 
+   * from the command line, this method needs to be explicitly called to use instances
+   * of the {@link CodegenConfig} inteface.
+   */
   void init();
 
   /*** [CV] END PATCH CODE ***/ 
